@@ -6,6 +6,7 @@ const Discord = require("discord.js");
 // this is what we're refering to. Your bot.
 const bot = new Discord.Client();
 const oldCommands = require("./oldCommands.js")
+const _ = require("lodash")
 
 // Here we load the config.json file that contains our token and our prefix values. 
 const config = require("./config.json");
@@ -45,9 +46,6 @@ bot.on("message", async message => {
   // which is set in the configuration file.
   
   if(message.content.indexOf(config.prefix) !== 0) {
-	  if (message.contents.some("ai")) {
-		  oldCommands.say(message, stringRet.trim().split(/ +/g))
-	  }
 	  // console.log(message.content, config.prefix);
 	  return;
   }
@@ -59,25 +57,33 @@ bot.on("message", async message => {
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
   
+  try {
+	  oldCommands[command](message,args)
+  }
+  catch(err) {
+	  console.log("Not a command")
+  }
   
-  // Let's go with a few common example commands! Feel free to delete or change those.
   switch (command) {
 	case "div":
-		break;
-	case "kick":
-		oldCommands.kick(message, args);
-		break;
-	case "say":
-		oldCommands.say(message, args)
-		break;
-	case "purge":
-		oldCommands.purge(message, args)
-		break;
-	case "ping":
-		oldCommands.ping(message, args)
-		break;
+        if (!message.mentions.users.first()) {
+                    message.channel.send("You have to tag someone my dude.")
+                    break;
+        }
+        const member = (message.mentions.users.first())
+		try {
+			const voiceChannel = message.guild.channels.find((c) => ["div", "afk"].includes(c.name.toLowerCase)).first()
+			message.guild.member(member).setVoiceChannel(voiceChannel)
+		} catch (err) {
+			// console.log(err)
+		} finally {
+			message.channel.send(":right_facing_fist: " + member + ". YOU GONE!")
+		}
+        break;
+	case "gif":
+		message.channel.send("/giphy " + args.join(" "))
   }
 })
   
 
-bot.login(config.token);
+bot.login(config.tokenCheez);

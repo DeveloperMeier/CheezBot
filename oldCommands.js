@@ -19,12 +19,8 @@ const kick = async (message, args) => {
 	// This command must be limited to mods and admins. In this example we just hardcode the role names.
 	// Please read on Array.some() to understand this bit: 
 	// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-	_.map(message.member.roles, (r) => console.log(r))
-	message.member.roles.some(r=>{
-		console.log(r)
-		return ["Owner"]
-	})
-	if(!message.member.roles.some(r=>["Administrator", "Moderator", "Owner"].includes(r.name)) )
+
+	if(!message.member.roles.some(r=>["Administrator", "Moderator", "@owner", "Immortal", "Ender"].includes(r.name)))
 	   return message.reply("Sorry, you don't have permissions to use this!");
 	
 	// Let's first check if we have a member and if we can kick them!
