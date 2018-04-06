@@ -1,4 +1,13 @@
 const _ = require("lodash")
+const defaultRoles = ["Administrator", "@owner", "Immortal", "Ender", "Moderator"]
+const gatedCall = (message, roles = defaultRoles) => {
+	if(!message.member.roles.some(r=>roles.includes(r.name)) ) {
+		message.reply("Sorry, you don't have permissions to use this!");
+		return false
+	} else {
+		return true
+	}
+}
 
 const ping = async (message) => {
 	// Calculates ping between sending a message and editing it, giving a nice round-trip latency.
@@ -16,12 +25,7 @@ const say = (message, args) => {
 	message.channel.send(sayMessage);
 }
 const kick = async (message, args) => {
-	// This command must be limited to mods and admins. In this example we just hardcode the role names.
-	// Please read on Array.some() to understand this bit: 
-	// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/some?
-
-	if(!message.member.roles.some(r=>["Administrator", "Moderator", "@owner", "Immortal", "Ender"].includes(r.name)))
-	   return message.reply("Sorry, you don't have permissions to use this!");
+	if (!gatedCall(message)) return
 	
 	// Let's first check if we have a member and if we can kick them!
 	// message.mentions.members is a collection of people that have been mentioned, as GuildMembers.
@@ -45,11 +49,7 @@ const kick = async (message, args) => {
 }
 
 const ban = async (message, args) => {
-	// Most of this command is identical to kick, except that here we'll only let admins do it.
-	// In the real world mods could ban too, but this is just an example, right? ;)
-	if(!message.member.roles.some(r=>["Administrator"].includes(r.name)) )
-	  return message.reply("Sorry, you don't have permissions to use this!");
-	
+	if (!gatedCall(message)) return
 	let member = message.mentions.members.first();
 	if(!member)
 	  return message.reply("Please mention a valid member of this server");
@@ -81,16 +81,20 @@ const purge = async (message, args) => {
 }
 
 const div = async (message, args) => {
+	if (!gatedCall(message)) return 
 	if (!message.mentions.users.first()) {
 				message.channel.send("You have to tag someone my dude.")
-				break;
+				return
 	}
+
 	const member = (message.mentions.users.first())
 	try {
-		const voiceChannel = message.guild.channels.find((c) => ["div", "afk"].includes(c.name.toLowerCase)).first()
+		const voiceChannel = message.guild.channels.find((c) => {
+			return ["div", "afk"].includes(c.name.toLowerCase())
+		})
 		message.guild.member(member).setVoiceChannel(voiceChannel)
 	} catch (err) {
-		// console.log(err)
+		 console.log(err)
 	} finally {
 		message.channel.send(":right_facing_fist: " + member + ". YOU GONE!")
 	}
@@ -99,6 +103,7 @@ const div = async (message, args) => {
 const gif = (message, args) => {
 		message.channel.send("/giphy " + args.join(" "))
 }
+
 
 const commands = {
 	purge,
