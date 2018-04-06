@@ -80,12 +80,34 @@ const purge = async (message, args) => {
 	  .catch(error => message.reply(`Couldn't delete messages because of: ${error}`));
 }
 
+const div = async (message, args) => {
+	if (!message.mentions.users.first()) {
+				message.channel.send("You have to tag someone my dude.")
+				break;
+	}
+	const member = (message.mentions.users.first())
+	try {
+		const voiceChannel = message.guild.channels.find((c) => ["div", "afk"].includes(c.name.toLowerCase)).first()
+		message.guild.member(member).setVoiceChannel(voiceChannel)
+	} catch (err) {
+		// console.log(err)
+	} finally {
+		message.channel.send(":right_facing_fist: " + member + ". YOU GONE!")
+	}
+}
+
+const gif = (message, args) => {
+		message.channel.send("/giphy " + args.join(" "))
+}
+
 const commands = {
 	purge,
 	ban,
 	kick,
 	say,
-	ping
+	ping,
+	div,
+	gif
 }
 
 module.exports = commands

@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 // some might call it `cootchie`. Either way, when you see `bot.something`, or `bot.something`,
 // this is what we're refering to. Your bot.
 const bot = new Discord.Client();
-const oldCommands = require("./oldCommands.js")
+const commands = require("./commands.js")
 const _ = require("lodash")
 
 // Here we load the config.json file that contains our token and our prefix values. 
@@ -58,30 +58,10 @@ bot.on("message", async message => {
   const command = args.shift().toLowerCase();
   
   try {
-	  oldCommands[command](message,args)
+	  commands[command](message,args)
   }
   catch(err) {
 	  console.log("Not a command")
-  }
-  
-  switch (command) {
-	case "div":
-        if (!message.mentions.users.first()) {
-                    message.channel.send("You have to tag someone my dude.")
-                    break;
-        }
-        const member = (message.mentions.users.first())
-		try {
-			const voiceChannel = message.guild.channels.find((c) => ["div", "afk"].includes(c.name.toLowerCase)).first()
-			message.guild.member(member).setVoiceChannel(voiceChannel)
-		} catch (err) {
-			// console.log(err)
-		} finally {
-			message.channel.send(":right_facing_fist: " + member + ". YOU GONE!")
-		}
-        break;
-	case "gif":
-		message.channel.send("/giphy " + args.join(" "))
   }
 })
   
