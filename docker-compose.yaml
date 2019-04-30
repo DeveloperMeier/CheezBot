@@ -19,6 +19,8 @@ services:
       - ${PWD}/config.json:/config.json
     ports:
       - "3001:3001"
+    depends_on:
+      - cb-data
   cb-data:
     container_name: "cb-data"
     image: "mongo"

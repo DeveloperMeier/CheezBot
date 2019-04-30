@@ -1,26 +1,11 @@
-const Music = require('discord.js-musicbot-addon')
 const Discord  = require("discord.js");
 const bot      = new Discord.Client();
 const Commands = require("./src/js/commands.js")
 const config = require("./config.json");
-// const musicBot = Music.start(bot, {
-//   prefix: config.prefix, // Prefix for the commands.
-//   global: false,            // Non-server-specific queues.
-//   maxQueueSize: 100,        // Maximum queue size of 25.
-//   clearInvoker: true,      // If permissions applicable, allow the bot to delete the messages that invoke it.
-//   helpCmd: 'chelp',        // Sets the name for the help command.
-//   playCmd: 'cplay',        // Sets the name for the 'play' command.
-//   volumeCmd: 'adjust',     // Sets the name for the 'volume' command.
-//   leaveCmd: 'gtfo',      // Sets the name for the 'leave' command.
-// 	disableLoop: true,        // Disable the loop command.
-// 	youtubeKey: config.googleApiKey,
-// 	enableQueueStat: true
-// });
 const musicBot = "I'm a dummy"
 const commands = new Commands(bot, musicBot)
 const _        = require("lodash")
 const readline = require('readline');
-
 
 var lastChan;
 const liveInput = true

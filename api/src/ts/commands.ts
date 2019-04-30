@@ -4,6 +4,7 @@ import {Bot,DiscordMessage, DiscordMember} from './types/discord'
 import {Spotify} from './spotify'
 import { YouTube } from './youtube';
 import { Permissions } from './permissions';
+import {CBStorage} from './storage'
 
 declare interface funcType {
 	default: (message: DiscordMessage, args: string[]) => Promise<void>;
@@ -45,6 +46,7 @@ class Commands {
 	constructor(bot: Bot, musicBot: any) {
         require("isomorphic-fetch")
 		console.log(config)
+    new CBStorage()
 		
         
         this.spotify = new Spotify(config.spotifyID, config.spotifySecret)
