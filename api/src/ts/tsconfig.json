@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "outDir": "../js",
+        "sourceMap": true,
+        "lib": ["es2015", "dom", "es7"]
+    },
+    "exclude": [
+        "./node_modules",
+        "**/*.spec.ts",
+        "./src/js"
+    ]
+}

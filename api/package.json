@@ -1,0 +1,30 @@
+{
+  "scripts": {
+    "tsc": "tsc -p src/ts",
+    "start": "npm run tsc && node app.js -v",
+    "forever": "node_modules/.bin/forever start app.js -c \"npm run start\""
+  },
+  "dependencies": {
+    "botbuilder": "^3.15.0",
+    "discord-yt-player": "^1.1.1",
+    "discord.js": "^11.3.2",
+    "discord.js-musicbot-addon": "^12.0.6",
+    "es6-promise": "^4.2.4",
+    "fetch": "^1.1.0",
+    "ffmpeg": "0.0.4",
+    "forever": "^0.15.3",
+    "fs": "0.0.1-security",
+    "image-to-ascii": "^3.0.11",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.5",
+    "node-lame": "^1.1.0",
+    "node-opus": "^0.3.0",
+    "node-spotify-api": "^1.0.7",
+    "random-quote": "0.0.1",
+    "request": "^2.88.0",
+    "restify": "^7.1.1",
+    "typescript": "^3.1.1",
+    "youtube-audio-stream": "^0.2.0",
+    "ytdl-core": "^0.26.0"
+  }
+}

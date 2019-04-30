@@ -1,0 +1,26 @@
+version: '3'
+services:
+  cb-web:
+    container_name: cheezbot-web
+    image: cb-web
+    build: ./web
+    environment: 
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+  cb-api:
+    container_name: cheezbot-api
+    image: cb-api
+    build: ./api
+    command: npm run start
+    environment: 
+      NODE_ENV: production
+    volumes:
+      - ${PWD}/config.json:/config.json
+    ports:
+      - "3001:3001"
+  cb-data:
+    container_name: "cb-data"
+    image: "mongo"
+    ports:
+      - "27017:27017"
