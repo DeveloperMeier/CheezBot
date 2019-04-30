@@ -5,8 +5,7 @@ const testSchema = new Schema({
   serverOwners: [String],
   updated: {type: Date, default: Date.now}
 })
-const test = mongoose.model('Test', testSchema)
-const Test = new test()
+
 export interface CBStorage {
 }
 
@@ -15,12 +14,16 @@ export class CBStorage {
       mongoose.connect('mongodb://cb-data/test-mongo', {useNewUrlParser: true})
         .then(() => console.log("Mongo Connected"))
         .catch(err => console.log(err))
-      //this.awaiter(Test.save())
-      //console.log(Test)
+
+      // const test = mongoose.model('Test', testSchema)
+      // const Test = new test({serverName: "Not A Real Server", serverOwners: ['Colby']})
+      // this.awaiter(Test.save())
+      // console.log(Test)
+      // test.find({}, (err, result) => console.log(result))
     }
 
-    /*async awaiter(awaited) {
-      await(awaited)
-    }*/
+    // async awaiter(awaited) {
+    //   await(awaited)
+    // }
 }
 
