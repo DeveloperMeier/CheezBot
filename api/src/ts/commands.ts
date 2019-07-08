@@ -61,7 +61,7 @@ class Commands {
 		this.cend = this.yt.cend
 		this.cplay = this.yt.cplay
 		this.cpause = this.yt.cpause
-		this.gameroles = ['RocketLeague', "DnD", 'SSBU', 'R6Siege', 'Overwatch', 'ApexLegends', "Division2"]
+		this.gameroles = ['RocketLeague', "DnD", 'SSBU', 'R6Siege', 'Overwatch', 'ApexLegends', "Division2", 'BFV']
 		this.gamerolesMsg = `React to this message with the associated reaction to be given that role. [:`+this.gameroles.join(":, :")+":]"
 		// this.gtfo = this.yt.gtfo
 	}
@@ -84,6 +84,49 @@ class Commands {
 			.catch(console.error)
 		}
 	}
+	async fakeraffle(message, args = 20) {
+		this.deleteMessage(message)
+		var m = await message.channel.send("Like this comment for entry into our raffle!")
+		setTimeout(
+			() => m.edit("Like this comment if you're into weird porn."),
+			args * 1000 )
+	}
+	
+	async lfg(message: DiscordMessage, args: string[]) {
+        const requestMessage = `A \'Looking for Group\` request has been made by ${message.author}.\nClick with the below reaction to sign up for that game.`
+        let lfgMap = {};
+        const sent = message.channel.send(`${requestMessage}`)
+
+        async function filter(reaction, user) {
+        //if (!this.gameroles.includes(reaction.emoji.name)) return false
+            reaction.users.forEach(async (reactionUser) => {
+                lfgMap[reaction.emoji.name] = lfgMap[reaction.emoji.name] || []
+                if (!(lfgMap[reaction.emoji.name] || []).includes(reactionUser) && reactionUser.username != 'Cheez Bot') {
+                    lfgMap[reaction.emoji.name].push(reactionUser)
+                }
+                const sentMessage = await sent;
+                const signedUpMessage = Object.keys(lfgMap).map(gameArr => {
+                    if (lfgMap[gameArr].length > 0) {
+                        return `${gameArr}: ${lfgMap[gameArr].map(user => user.username).join(', ')}\n`
+                    }
+                    return ''
+                }).join('')
+                sentMessage.edit(`${requestMessage}\n\n_________________\n${signedUpMessage}`)
+            })
+            return true
+        }
+    
+        sent.then((x: DiscordMessage) => {
+            this.gameroles.forEach(item => {
+                const emoji = message.guild.emojis.find(emoji => emoji.name === item)
+                if (emoji) {
+                    x.react(emoji)
+                }
+            })
+            x.awaitReactions(filter/*, {time: timeout * 1000}*/)        
+        })
+        .catch(console.error)
+    }
 
 	gamerole(message: DiscordMessage, args: string[]) {
 		const filter = (reaction, user) => {
@@ -92,7 +135,7 @@ class Commands {
 			return true
 		}
 		const timeout = 60
-		const sent = message.channel.send(`@here ${this.gamerolesMsg}`)
+		const sent = message.channel.send(`${this.gamerolesMsg}`)
 	
 		sent.then((x: DiscordMessage) => {
 			this.gameroles.forEach(item => {
@@ -299,13 +342,6 @@ class Commands {
 		message.channel.send(sayMessage);
 	}
 	
-	async fakeraffle(message, args = 20) {
-		this.deleteMessage(message)
-		var m = await message.channel.send("Like this comment for entry into our raffle!")
-		setTimeout(
-			() => m.edit("Like this comment if you're into weird porn."),
-			args * 1000 )
-	}
 	
 	
 	async kick(message: DiscordMessage, args: string[]) {
@@ -396,6 +432,11 @@ class Commands {
 		if (!this.gatedCall(message, this.defaultErrorMsg)) return
 		this.fetchList(`https://api.giphy.com/v1/gifs/search?api_key=${config.giphyApiKey}&q=${args.join(" ")}&limit=100&offset=0&rating=PG-13&lang=en`, message, args)
 	}
+
+	async 420(message: DiscordMessage, args: string[]) {
+		this.gif(message, ["420"])
+	}
+
 	
 	async puppy(message: DiscordMessage, args: string[]) {
 		this.gif(message, ["Puppy"])
