@@ -227,7 +227,7 @@ class Commands {
 		})
 		.catch(err => {
 			console.log(err)
-			message.channel.send("Nice try, but your attempt to search looks like this https://img.buzzfeed.com/buzzfeed-static/static/2014-11/10/13/enhanced/webdr04/anigif_enhanced-buzz-6539-1415644559-8.gif?downsize=715:*&output-format=auto&output-quality=auto")
+			message.channel.send("No results found. https://giphy.com/gifs/mel-brooks-spaceballs-IHOOMIiw5v9VS")
 		})			
 	}
 	
@@ -430,7 +430,7 @@ class Commands {
 
 	async gif(message: DiscordMessage, args: string[]) {
 		if (!this.gatedCall(message, this.defaultErrorMsg)) return
-		this.fetchList(`https://api.giphy.com/v1/gifs/search?api_key=${config.giphyApiKey}&q=${args.join(" ")}&limit=100&offset=0&rating=PG-13&lang=en`, message, args)
+		this.fetchList(`https://api.giphy.com/v1/gifs/search?api_key=${config.giphyApiKey}&q=${args.join("+")}&limit=100&offset=0&rating=PG-13&lang=en`, message, args)
 	}
 
 	async 420(message: DiscordMessage, args: string[]) {

@@ -24,7 +24,7 @@
     "random-quote": "0.0.1",
     "request": "^2.88.0",
     "restify": "^7.1.1",
-    "typescript": "^3.1.1",
+    "typescript": "^3.5.3",
     "youtube-audio-stream": "^0.2.0",
     "ytdl-core": "^0.26.0"
   }

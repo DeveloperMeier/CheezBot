@@ -2,3 +2,4 @@ config.json
 api/node_modules/
 data/
 api/src/js/
+app/node_modules

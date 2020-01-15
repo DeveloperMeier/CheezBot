@@ -13,7 +13,7 @@ const chatbotActive = true
 
 bot.on("ready", () => {
   console.log(`Bot has started, with ${bot.users.size} users, in ${bot.channels.size} channels of ${bot.guilds.size} guilds.`); 
-  bot.user.setActivity(`I'm pretty.`);
+  bot.user.setActivity(`( • )( • )ԅ(‾⌣‾ԅ)`);
 });
 
 bot.on("guildCreate", guild => {
