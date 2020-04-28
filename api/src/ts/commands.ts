@@ -61,7 +61,7 @@ class Commands {
 		this.cend = this.yt.cend
 		this.cplay = this.yt.cplay
 		this.cpause = this.yt.cpause
-		this.gameroles = ['RocketLeague', "DnD", 'SSBU', 'R6Siege', 'Overwatch', 'ApexLegends', "Division2", 'BFV']
+		this.gameroles = ['RocketLeague', "DnD", 'SSBU', 'R6Siege', 'Overwatch', 'ApexLegends', "Division2", 'BFV', 'CSGO', 'Jackbox']
 		this.gamerolesMsg = `React to this message with the associated reaction to be given that role. [:`+this.gameroles.join(":, :")+":]"
 		// this.gtfo = this.yt.gtfo
 	}
