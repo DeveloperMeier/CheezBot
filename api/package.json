@@ -16,7 +16,7 @@
     "fs": "0.0.1-security",
     "image-to-ascii": "^3.0.11",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "mongoose": "^5.5.5",
     "node-lame": "^1.1.0",
     "node-opus": "^0.3.0",
